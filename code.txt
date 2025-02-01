@@ -1,0 +1,29 @@
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('Index');
+}
+
+function getData() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = sheet.getDataRange().getValues();
+  return data;
+}
+
+function testEmail() {
+  MailApp.sendEmail({
+    to: "lingamguntlamamatha854@gmail.com",
+    subject: "Test Email from Google Apps Script",
+    body: "This is a test email."
+  });
+}
+
+function sendSMSEmail() {
+    var phoneNumber = "9014746245";  
+    var carrier = "jio.com";  
+
+    var email = phoneNumber + "@" + carrier;
+    
+    MailApp.sendEmail({
+        to: email,
+        subject: "Overcrowding Alert",
+        body: "A location is overcrowded. Check Google Sheets for details."
+    });

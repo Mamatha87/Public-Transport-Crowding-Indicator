@@ -1,0 +1,26 @@
+function onFormSubmit(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var lastRow = sheet.getLastRow();
+  
+  // Fetch values from the last form submission
+  var timestamp = sheet.getRange(lastRow, 1).getValue();
+  var transportType = sheet.getRange(lastRow, 2).getValue();
+  var route = sheet.getRange(lastRow, 3).getValue();
+  var location = sheet.getRange(lastRow, 4).getValue();
+  var crowdLevel = sheet.getRange(lastRow, 5).getValue();
+  var time = sheet.getRange(lastRow, 6).getValue();
+  var dateOfTravel = sheet.getRange(lastRow, 7).getValue(); 
+  var comments = sheet.getRange(lastRow, 8).getValue(); 
+
+
+Logger.log("crowd Level: " + crowdLevel);
+  // Example automation: Send an email alert if overcrowded
+  if (crowdLevel === "Overcrowded") {
+    Logger.log("Sending email...");
+    MailApp.sendEmail({
+      to: "lingamguntlamamatha854@gmail.com", 
+      subject: "Overcrowding Alert: " + transportType + " - " + route,
+      body: "High congestion reported at " + location + " on " + transportType + " " + route + ".\n\nDetails:\nDate of Travel: " + dateOfTravel + "\nTime: " + time + "\nComments: " + comments
+    });
+  }
+}

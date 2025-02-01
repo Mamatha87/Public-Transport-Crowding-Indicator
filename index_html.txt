@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <h1>Public Data View</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>Transport Type</th>
+          <th>Route</th>
+          <th>Location</th>
+          <th>Crowd Level</th>
+          <th>Time</th>
+          <th>Date of Travel</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody id="data">
+      </tbody>
+    </table>
+    <script>
+      function fetchData() {
+        google.script.run.withSuccessHandler(renderData).getData();
+      }
+      function renderData(data) {
+        var tbody = document.getElementById('data');
+        data.forEach(function(row) {
+          var tr = document.createElement('tr');
+          row.forEach(function(cell) {
+            var td = document.createElement('td');
+            td.textContent = cell;
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+      }
+      fetchData();
+    </script>
+  </body>
+</html>
